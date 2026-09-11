@@ -1,6 +1,0 @@
-name = "kanban-pages"
-pages_build_output_dir = "dist/client"
-compatibility_date = "2024-04-05"
-
-[build]
-command = "npm run build:vite"
