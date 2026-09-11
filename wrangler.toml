@@ -3,7 +3,6 @@ main = "src/app/index.ts"
 compatibility_date = "2024-04-05"
 compatibility_flags = ["nodejs_compat"]
 migrations_dir = "src/app/db/migrations"
-pages_build_output_dir = "dist/client"
 
 [build]
 command = "npm run build:worker"
@@ -20,13 +19,3 @@ id = "853fdca7234c4aed95a1c974c48083ab"
 
 [vars]
 ENVIRONMENT = "production"
-JWT_SECRET = "your-jwt-secret"
-HERMES_WEBHOOK_URL = "https://your-hermes-endpoint.com/webhook"
-SMTP_HOST = "smtp.example.com"
-SMTP_PORT = "587"
-SMTP_USER = "your-smtp-user"
-SMTP_PASS = "your-smtp-pass"
-SMTP_FROM = "noreply@yourdomain.com"
-
-[pages]
-build_dir = "dist/client"

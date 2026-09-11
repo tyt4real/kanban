@@ -1,6 +1,6 @@
 # Kanban Board
 
-A full-stack Kanban board application built with React, TypeScript, and Cloudflare Workers/Pages. Features include drag-and-drop task management, AI agent webhook integration, category colors, email notifications, and strong authentication.
+A Kanban board application built with TypeScript and Cloudflare Pages. Features include drag-and-drop task management, AI agent webhook integration, category colors, email notifications, and strong authentication.
 
 ## Features
 
@@ -12,46 +12,6 @@ A full-stack Kanban board application built with React, TypeScript, and Cloudfla
 - **Email Notifications**: SMTP notifications when task moves to Finished column
 - **Webhook Tracking**: Delivery status monitoring with retry capability
 - **Deployment**: Cloudflare Pages + Workers with D1 (SQLite) database
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| Frontend | React 18, TypeScript, Vite, Tailwind CSS |
-| State | TanStack Query (React Query) |
-| Forms | React Hook Form + Zod |
-| Drag & Drop | @dnd-kit |
-| Backend | Cloudflare Workers |
-| Database | Cloudflare D1 (SQLite) |
-| Rate Limiting | Cloudflare Workers KV |
-| Email | Nodemailer + SMTP |
-| Auth | Custom JWT (jose) + bcrypt |
-| CI/CD | GitHub Actions |
-
-## Project Structure
-
-```
-kanban/
-├── .github/workflows/     # CI/CD pipelines
-├── public/                # Static assets
-├── src/
-│   ├── app/               # Cloudflare Worker backend
-│   │   ├── db/            # Database schema & migrations
-│   │   ├── middleware/    # Auth, rate limiting, CORS, errors
-│   │   ├── routes/        # API route handlers
-│   │   ├── services/      # Business logic
-│   │   └── types/         # Shared TypeScript types
-│   └── frontend/          # React application
-│       ├── components/    # UI components
-│       ├── hooks/         # Custom React hooks
-│       ├── lib/           # Utilities (API client, validation)
-│       ├── routes/        # Page components
-│       └── styles/        # Global styles
-├── tests/                 # Unit, integration, E2E tests
-├── wrangler.toml          # Production Worker config
-├── wrangler.dev.toml      # Development Worker config
-└── package.json
-```
 
 ## Getting Started
 
@@ -66,7 +26,7 @@ kanban/
 
 ```bash
 # Clone and install dependencies
-git clone <repo-url>
+git clone https://github.com/tyt4real/kanban
 cd kanban
 npm install
 
@@ -126,61 +86,6 @@ npm run deploy:preview   # Deploy preview to Cloudflare Pages
 npm run deploy:prod      # Deploy to production
 ```
 
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login
-- `POST /api/auth/logout` - Logout
-- `POST /api/auth/refresh` - Refresh access token
-- `GET /api/auth/me` - Get current user
-- `POST /api/auth/change-password` - Change password
-
-### Boards
-- `GET /api/boards` - List boards
-- `POST /api/boards` - Create board
-- `GET /api/boards/:id` - Get board with columns
-- `PATCH /api/boards/:id` - Update board
-- `DELETE /api/boards/:id` - Delete board
-
-### Columns
-- `POST /api/boards/:boardId/columns` - Create column
-- `PATCH /api/columns/:id` - Update column
-- `DELETE /api/columns/:id` - Delete column
-
-### Tasks
-- `GET /api/boards/:boardId/tasks` - List tasks (with filters)
-- `POST /api/tasks` - Create task
-- `PATCH /api/tasks/:id` - Update task
-- `PATCH /api/tasks/move` - Move task between columns
-- `DELETE /api/tasks/:id` - Delete task
-
-### Categories
-- `GET /api/categories` - List categories
-- `POST /api/categories` - Create category
-- `PATCH /api/categories/:id` - Update category
-- `DELETE /api/categories/:id` - Delete category
-
-### Webhooks
-- `GET /api/webhooks/tasks/:taskId` - Get webhook delivery status
-- `POST /api/webhooks/retry/:taskId` - Retry failed webhook
-
-### Settings
-- `GET /api/settings` - Get all settings
-- `PUT /api/settings/smtp` - Update SMTP config
-- `POST /api/settings/smtp/test` - Send test email
-- `PUT /api/settings/rate-limits` - Update rate limits
-
-## Rate Limits (Default)
-
-| Endpoint Type | Requests/Minute |
-|---------------|-----------------|
-| Auth (`/api/auth/*`) | 5 |
-| API (boards, tasks, etc.) | 60 |
-| Webhooks | 10 |
-
-Configure via `PUT /api/settings/rate-limits` or Cloudflare Workers secrets.
-
 ## Webhook Payload
 
 When a task is created or moved into an AI Agent category:
@@ -227,33 +132,12 @@ Task description here
 Kanban Board Notification
 ```
 
-## Development
-
-### Database Schema
-
-See `src/app/db/schema.sql` for full schema. Key tables:
-- `users` - Authentication
-- `boards` - Kanban boards
-- `columns` - Board columns
-- `categories` - Task categories with colors
-- `tasks` - Tasks with positions
-- `webhook_deliveries` - Webhook tracking
-- `settings` - Global configuration
-- `rate_limit_keys` - Distributed rate limiting
-
 ### Adding Migrations
 
 ```bash
 npm run db:generate
 # Edit generated migration file in src/app/db/migrations/
 npm run db:migrate
-```
-
-### Testing
-
-```bash
-npm run test           # Unit/integration tests (Vitest)
-npm run test:e2e       # E2E tests (Playwright)
 ```
 
 ## Deployment

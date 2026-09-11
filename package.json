@@ -20,8 +20,9 @@
     "db:migrate": "wrangler d1 migrations apply kanban-db --config wrangler.dev.toml --local",
     "db:migrate:prod": "wrangler d1 migrations apply kanban-db --config wrangler.toml --remote",
     "db:seed": "tsx scripts/seed.ts",
-    "deploy:preview": "wrangler pages deploy dist/client --config wrangler.toml",
-    "deploy:prod": "wrangler pages deploy dist/client --config wrangler.toml && wrangler deploy --config wrangler.toml",
+    "deploy:pages": "wrangler pages deploy dist/client --config wrangler.pages.toml",
+    "deploy:worker": "wrangler deploy --config wrangler.toml",
+    "deploy:prod": "npm run deploy:pages && npm run deploy:worker",
     "format": "prettier --write \"src/**/*.{ts,tsx,json,css,md}\"",
     "check": "npm run lint && npm run typecheck && npm run test"
   },
